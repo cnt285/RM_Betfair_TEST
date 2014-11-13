@@ -1,0 +1,4 @@
+AAPL
+SPY
+TVIX
+GOOG
