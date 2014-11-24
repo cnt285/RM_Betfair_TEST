@@ -19,16 +19,7 @@ import urllib
 import re
 import MySQLdb
 
-host_name = "localhost"
-user_name = "root"
-password = ""
-
-conn = MySQLdb.connect(host=host_name, user=user_name, passwd=password, db="stock_data")
-
-query = "INSERT INTO tutorial (symbol) values ('AAPL')"
-x = conn.cursor()
-x.execute(query)
-row = x.fetchall()
+gmap = {}
 
 
 def th(ur):
@@ -38,7 +29,11 @@ def th(ur):
     pattern = re.compile(regex)
     htmltext = urllib.urlopen(base_url).read()
     results = re.findall(pattern, htmltext)
-    print "the price of " + str(ur) + " is " + str(results)
+    
+    try:
+        gmap[ur] = results[0]
+    except:
+        print "got an error"
     
 # urls = "http://google.com http://cnn.com http://yahoo.com http://wikipedia.com".split()
 
@@ -56,3 +51,18 @@ for u in symbolslist:
 for b in threadlist:
     b.join()
     
+
+
+
+
+
+host_name = "localhost"
+user_name = "root"
+password = ""
+
+conn = MySQLdb.connect(host=host_name, user=user_name, passwd=password, db="stock_data")
+
+query = "INSERT INTO tutorial (symbol) values ('AAPL')"
+x = conn.cursor()
+x.execute(query)
+row = x.fetchall()
